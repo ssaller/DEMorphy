@@ -11,7 +11,7 @@ tests_requires = [
 ]
 
 install_requires = [
-    "dawg (>= 0.7.8)"
+    "dawg2 (>= 0.9.0)"
 ] 
 
 
