@@ -1,1 +1,0 @@
-demorphy/data/words.dg filter=lfs diff=lfs merge=lfs -text
