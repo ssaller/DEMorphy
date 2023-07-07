@@ -1,5 +1,14 @@
 #!/usr/bin/env python
 from setuptools import setup
+import os
+import subprocess
+import sys
+
+try:
+    import git
+except ModuleNotFoundError:
+    subprocess.call([sys.executable, '-m', 'pip', 'install', 'gitpython'])
+    import git
 
 def get_version():
     with open("demorphy/version.py", "rt") as f:
@@ -12,8 +21,23 @@ tests_requires = [
 
 install_requires = [
     "dawg2 (>= 0.7.8)"
-] 
+]
 
+
+def pull_first():
+    """This script is in a git directory that can be pulled."""
+    cwd = os.getcwd()
+    gitdir = os.path.dirname(os.path.realpath(__file__))
+    os.chdir(gitdir)
+    g = git.cmd.Git(gitdir)
+    try:
+        g.execute(['git', 'lfs', 'pull'])
+    except git.exc.GitCommandError:
+        raise RuntimeError("Make sure git-lfs is installed!")
+    os.chdir(cwd)
+
+
+pull_first()
 
 setup(
     name="demorphy",
@@ -51,6 +75,7 @@ setup(
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Scientific/Engineering :: Information Analysis",
