@@ -7,7 +7,7 @@ import sys
 try:
     import git
 except ModuleNotFoundError:
-    subprocess.call([sys.executable, '-m', 'pip', 'install', 'gitpython'])
+    subprocess.call([sys.executable, '-m', 'pip3', 'install', 'gitpython'])
     import git
 
 
